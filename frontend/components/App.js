@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import * as yup from 'yup'
 import schemas from '../../shared/schemas'
+import langObj from "../i18n/index.json" 
+
+
+console.log(langObj)
+
 
 /*
   👉 TASK 2
@@ -60,11 +65,12 @@ export default function App({ lang = 'en' }) {
         setSubmitAllowed(true)
       })
   }
+  
 
   return (
     <div>
       <h2>
-        Create an Account
+        {langObj[language].TEXT_HEADING_CREATE_ACCOUNT}
         <span onClick={() => setLanguage(language === 'en' ? 'esp' : 'en')}>
           {language === 'en' ? ' 🇺🇸' : ' 🇪🇸'}
         </span>
@@ -74,33 +80,33 @@ export default function App({ lang = 'en' }) {
         {failure && <h4 className="error">{failure}</h4>}
 
         <div className="inputGroup">
-          <label htmlFor="username">Username:</label>
-          <input id="username" name="username" onChange={onChange} value={values.username} type="text" placeholder="Type username" />
+          <label htmlFor="username">{langObj[language].LABEL_USERNAME}</label>
+          <input id="username" name="username" onChange={onChange} value={values.username} type="text" placeholder={langObj[language].PLACEHOLDER_USERNAME} />
           {errors.username && <div className="validation">{errors.username}</div>}
         </div>
 
         <div className="inputGroup">
           <fieldset>
-            <legend>Favorite language:</legend>
+            <legend>{langObj[language].TEXT_FAV_LANG}</legend>
             <label>
               <input onChange={onChange} type="radio" name="favLanguage" value="javascript" checked={values.favLanguage == 'javascript'} />
-              JavaScript
+              {langObj[language].TEXT_FAV_LANG_JS}
             </label>
             <label>
               <input onChange={onChange} type="radio" name="favLanguage" value="rust" checked={values.favLanguage == 'rust'} />
-              Rust
+              {langObj[language].TEXT_FAV_LANG_RUST}
             </label>
           </fieldset>
           {errors.favLanguage && <div className="validation">{errors.favLanguage}</div>}
         </div>
 
         <div className="inputGroup">
-          <label htmlFor="favFood">Favorite food:</label>
+          <label htmlFor="favFood">{langObj[language].LABEL_FAV_FOOD}</label>
           <select id="favFood" name="favFood" value={values.favFood} onChange={onChange}>
-            <option value="">-- Select favorite food --</option>
-            <option value="pizza">Pizza</option>
-            <option value="spaghetti">Spaghetti</option>
-            <option value="broccoli">Broccoli</option>
+            <option value="">{langObj[language].TEXT_OPT_FAV_FOOD_1}</option>
+            <option value="pizza">{langObj[language].TEXT_OPT_FAV_FOOD_2}</option>
+            <option value="spaghetti">{langObj[language].TEXT_OPT_FAV_FOOD_3}</option>
+            <option value="broccoli">{langObj[language].TEXT_OPT_FAV_FOOD_4}</option>
           </select>
           {errors.favFood && <div className="validation">{errors.favFood}</div>}
         </div>
@@ -108,13 +114,13 @@ export default function App({ lang = 'en' }) {
         <div className="inputGroup">
           <label>
             <input id="agreement" type="checkbox" name="agreement" checked={values.agreement} onChange={onChange} />
-            Agree to our terms
+            {langObj[language].LABEL_ACCEPT_TERMS}
           </label>
           {errors.agreement && <div className="validation">{errors.agreement}</div>}
         </div>
 
         <div>
-          <input type="submit" disabled={!submitAllowed} value="Send" />
+          <input type="submit" disabled={!submitAllowed} value={langObj[language].TEXT_SUBMIT} />
         </div>
       </form>
     </div>
